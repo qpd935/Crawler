@@ -1,0 +1,603 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<base href="https://cbss.10010.com/"/>
+<script language="JavaScript" src="component/scripts/public.js"></script>
+<script language="JavaScript" src="component/scripts/validate.js"></script>
+<script language="JavaScript" src="component/scripts/dragiframe.js"></script>
+<link href="component/styles/public.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="component/styles/calendar.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="component/styles/tabset.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="component/styles/editor.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="component/styles/combobox.css" rel="stylesheet" type="text/css" media="screen"/>
+<script language="JavaScript" src="component/scripts/tabset.js"></script>
+<script language="JavaScript" src="component/scripts/tableedit.js"></script>
+<script language="JavaScript" src="component/scripts/print.js"></script>
+<script language="JavaScript" src="component/scripts/file.js"></script>
+<script language="JavaScript" src="component/scripts/lib/prototype.js"></script>
+<script language="JavaScript" src="component/scripts/lib/json.js"></script>
+<script language="JavaScript" src="component/scripts/ajax.js"></script>
+<meta id="pagecontext" pagename="Home" productMode='true' version='BSS2PLUS' subSysCode='BSS' contextName='essframe'  />
+ <meta http-equiv="Content-Type" content="text/html; charset=gb2312" /><link href="styles/frame_bss.css" rel="stylesheet" type="text/css"/>
+ <title>中国联通cBSS支撑系统</title>
+                <script language="JavaScript" src="scripts/pubjs/ipass/ipassAuthor.js"></script>
+                <script language="JavaScript" src="scripts/pubjs/sha1/core-min.js"></script>
+                <script language="JavaScript" src="scripts/pubjs/sha1/enc-base64-min.js"></script>
+                <script language="JavaScript" src="scripts/pubjs/sha1/sha1.js"></script>
+                <script language="JavaScript" src="scripts/pubjs/sha1/base64.js"></script>
+<!--1.	控件js脚本1 ,在body加载之前运行-->
+<script language="JavaScript" type="text/JavaScript">
+	var needDownload = false;//是否需要下载CA根证书
+	
+	function ipass(){
+		var  msiever;
+			try{	
+				msiever = msieversion();				
+				document.write("<object classid=\"CLSID:1F46C87D-7F42-4E3B-9C8E-EA7AE7922570\" id=\"comctrl\"  border=\"0\" width=\"0\" height=\"0\"></object>");
+				comctrl.getversion();
+				var r=comctrl.IsCertsExist();	
+				if(r==4){			
+					 if(window.location.protocol=='http:'){						
+						// window.location.href="https://cbss.10010.com/essframe";
+						window.location.href="https://cbss.10010.com/essframe";
+					 }		
+				}else{
+					alert("   为保证您的信息安全，需要在您的电脑上安装中国联通CA根证书，请在接下来弹出的窗口中选择“是”。");
+					comctrl.CertInstall();
+					r=comctrl.IsCertsExist();
+					if(r==4){//成功 
+					   window.location.href="https://cbss.10010.com/essframe";
+					  // window.location.replace="https://cbss.10010.com/essframe";
+					}else{					
+						alert("请刷新此页面安装联通CA根证书！");			
+						window.location.href="http://cbss.10010.com/essframe";
+					} 
+				} 
+				if(1==1 && getWinver()!=3){
+				}else{
+					 var obj = new ActiveXObject("UnicomCertInsActx.UnicomCertInsActxMan.1");
+					 if(window.location.protocol=='http:'){
+						 if(msiever==7||msiever==8)window.location.href="https://cbss.10010.com/essframe";
+						 window.location.replace="https://cbss.10010.com/essframe";
+					 }
+				}
+			
+		}catch(e){
+			//alert("请下载安装中国联通CA根证书！安装完成后重新启动浏览器再试！")
+			needDownload =true;
+		} 
+	}
+	
+	function msieversion() {
+         var ua = window.navigator.userAgent
+         var msie = ua.indexOf("MSIE ") 
+         if (msie > 0)      // If Internet Explorer, return version number 
+             return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)))
+         else                 // If another browser, return 0 
+             return 0 
+     } 
+     
+	function getWinver()
+	{
+		var ua = window.navigator.userAgent; 
+		var osVersion = ua.split(";")[2]; 
+		var osV = osVersion.substr(osVersion.length-3,3); 
+		switch(osV) 
+		{   
+			case "5.0": return(1);  
+			case "5.1": return(1); 
+			case "5.2": return(1);  
+			case "5.3": return(1); 
+			case "6.0": return(1); 
+			case "6.1": return(3); 
+			case "6.2": return(3); 
+			 default: return(3);  
+		}
+	}
+	
+	ipass();
+//根证书安装测试  end!
+
+</script>
+<script language="JavaScript" type="text/JavaScript">
+	//function onKeyPressEventByDefault() {onKeyPressEvent(null);}
+	//addObjEventListener("document", "keypress", onKeyPressEventByDefault);
+	function onContextMenuEventByDefault() {window.event.returnValue = false;}
+	addObjEventListener("document", "contextmenu", onContextMenuEventByDefault);
+	var pagevisit = getPageVisit();
+	completePageLoad();</script><script language="JavaScript" type="text/JavaScript">
+	function onKeyPressEventByDefault() {onKeyPressEvent(null);}
+	addObjEventListener("document", "keypress", onKeyPressEventByDefault);
+	function onContextMenuEventByDefault() {window.event.returnValue = false;}
+	addObjEventListener("document", "contextmenu", onContextMenuEventByDefault);
+	var pagevisit = getPageVisit();
+	completePageLoad();</script></head>
+<body ondrag="return false" id="login" class="login">
+
+<iframe id="wade_sbtframe" name="wade_sbtframe" class="c_sbtframe" frameborder="no" scrolling="no" style="display:none"></iframe>
+<!-- 
+<form jwcid="@Form">
+ <input jwcid="CHECK_GRAY_RELEASE@TextField" value="ognl:checkGrayRelease"
+ style="display: none;" />
+ <input jwcid="GRAY_RELEASE_URL@TextField" value="ognl:grayReleaseUrl"
+ style="display: none;" />
+</form> 
+ --><form method="post" name="Form0" action="/essframe;BSS_HM_JSESSIONID=PbODIa8UEjDaLz4Ve6XmmNs-CSpwVKCkaWQnn7qBMCqQyUtmWocC!-1008932418">
+<input type="hidden" id="service" name="service" value="direct/1/Home/$Form"/>
+<input type="hidden" id="sp" name="sp" value="S0"/>
+<input type="hidden" id="Form0" name="Form0" value="CHECK_GRAY_RELEASE,GRAY_RELEASE_URL,GRAY_RELEASE_FLAG,DATE"/>
+<span id="gray1" style="display: none;"><input type="text" id="CHECK_GRAY_RELEASE" name="CHECK_GRAY_RELEASE" value="false" style="display: none;"/><input type="text" id="GRAY_RELEASE_URL" name="GRAY_RELEASE_URL" style="display: none;"/><input type="text" id="GRAY_RELEASE_FLAG" name="GRAY_RELEASE_FLAG" value="true" style="display: none;"/><input type="text" id="DATE" name="DATE" value="11-19" style="display: none;"/></span></form>
+<!--3.	安装根证书的提示信息html-->
+<div id="dmsg2" style="display: none;">
+	<div  class="c_popup">
+		<div class="cTop clear" id="titlebar">
+			<div class="c1"></div><div class="c2"></div>
+		</div>
+		<div class="wrapper4"><div class="wrapper2">
+			<div id="dragArea" class="dragArea"></div>
+			<div class="body">
+				<div class="wrapper3 warning" style="height:198px">
+					<div class="tip">
+					<br/> 
+						<ul>
+							<li>警告：</li>
+						</ul>
+					</div>
+					<div class="content">
+						<h5>
+							 &nbsp;&nbsp;&nbsp;&nbsp;系统升级，请按照下面步骤下载安装中国联通根证书：<br/> 
+						
+							 &nbsp;&nbsp;&nbsp;&nbsp;1.下载<a href="CUCRV4.zip">安装工具包</a>;<br/> 
+							 &nbsp;&nbsp;&nbsp;&nbsp;2.解压后执行安装程序CUCR.exe，按照提示进行操作；<br/>
+							 &nbsp;&nbsp;&nbsp;&nbsp;3.安装完成后请重新打开浏览器再登陆系统。
+						</h5>				
+					</div>
+				</div>
+			</div>
+			</div>		
+		</div>
+	</div>
+</div>
+<div id="main"  >
+		<form id="staffLogin" method="post" target="_top"><form method="post" name="Form1" action="/essframe;BSS_HM_JSESSIONID=PbODIa8UEjDaLz4Ve6XmmNs-CSpwVKCkaWQnn7qBMCqQyUtmWocC!-1008932418" target="_top">
+<input type="hidden" id="service" name="service" value="direct/1/Home/$Form$0"/>
+<input type="hidden" id="sp" name="sp" value="S1"/>
+<input type="hidden" id="Form1" name="Form1" value="LOGIN_PROVINCE_REDIRECT_URL,LOGIN_TAG,AUTH_TYPE,CAPTURE_URL,WHITE_LIST_LOGIN,IPASS_LOGIN,IPASS_SERVICE_URL,IPASS_LOGIN_PROVINCE,IPASS_LOGINOUT_DOMAIN,SIGNATURE_CODE,SIGNATURE_DATA,IPASS_ACTIVATE,STAFF_ID,$FormConditional,$FormConditional$0,LOGIN_PROVINCE_CODE,$FormConditional$1,$FormConditional$2,$FormConditional$3,$FormConditional$4,$FormConditional$5,$TextField,$TextField$0,$TextField$1,$TextField$2,$TextField$3,$TextField$4,$TextField$5,$TextField$6,$TextField$7,$TextField$8,$TextField$9,$TextField$10,$TextField$11,$TextField$12,$TextField$13,$TextField$14,$TextField$15,$TextField$16,$TextField$17,$TextField$18,$TextField$19,$TextField$20,$TextField$21,$TextField$22,$TextField$23,$TextField$24,$TextField$25,$TextField$26,$TextField$27,$TextField$28,$TextField$29,$TextField$30,$TextField$31,$TextField$32"/>
+<input type="hidden" id="$FormConditional" name="$FormConditional" value="F"/>
+<input type="hidden" id="$FormConditional$0" name="$FormConditional$0" value="T"/>
+<input type="hidden" id="$FormConditional$1" name="$FormConditional$1" value="T"/>
+<input type="hidden" id="$FormConditional$2" name="$FormConditional$2" value="T"/>
+<input type="hidden" id="$FormConditional$3" name="$FormConditional$3" value="F"/>
+<input type="hidden" id="$FormConditional$4" name="$FormConditional$4" value="F"/>
+<input type="hidden" id="$FormConditional$5" name="$FormConditional$5" value="F"/>
+	<div class="f_login_bg"></div>
+				<!-- 登录部分 -->
+				<div class="f_login" id="f_login">
+					<h1 class="logo">
+						<span class="title">中国联通cBSS支撑系统</span>
+						<span class="province"><span>|</span>北六	</span>
+					</h1>
+					<div class="logintxt">
+						<!-- <span class="edition">版本：ESS<span jwcid="@Insert" value="ognl:@com.linkage.component.util.Utility@getProperty('project/edition', '2.0')" raw="true"/></span>--><div class="upgrade-tip-ie">
+    <span>您正在使用较低版本的浏览器，为了您更好的使用体验，建议您</span>
+    <a class="upgrade-tip-ie-link" href="/IE8-WindowsXP-x86-CHS.exe">升级到最新版本的IE浏览器</a>
+</div>
+<div class="inputArea"><input type="text" id="LOGIN_PROVINCE_REDIRECT_URL" name="LOGIN_PROVINCE_REDIRECT_URL" style="display: none;"/><input type="text" id="LOGIN_TAG" name="LOGIN_TAG" value="0" style="display: none;"/>	<input type="text" id="AUTH_TYPE" name="AUTH_TYPE" value="0" style="display: none;"/><input type="text" id="CAPTURE_URL" name="CAPTURE_URL" value="/image?mode=validate&amp;width=60&amp;height=20" style="display: none"/>	<!-- QC:17848 BEGIN --><input type="text" id="WHITE_LIST_LOGIN" name="WHITE_LIST_LOGIN" style="display: none"/><input type="text" id="IPASS_LOGIN" name="IPASS_LOGIN" style="display: none"/><input type="text" id="IPASS_SERVICE_URL" name="IPASS_SERVICE_URL" value="http://61.135.171.168:7001/services/IpassAutherService" style="display: none"/><input type="text" id="IPASS_LOGIN_PROVINCE" name="IPASS_LOGIN_PROVINCE" style="display: none"/><input type="text" id="IPASS_LOGINOUT_DOMAIN" name="IPASS_LOGINOUT_DOMAIN" style="display: none"/><input type="text" id="SIGNATURE_CODE" name="SIGNATURE_CODE" style="display: none"/><input type="text" id="SIGNATURE_DATA" name="SIGNATURE_DATA" style="display: none"/><input type="text" id="IPASS_ACTIVATE" name="IPASS_ACTIVATE" style="display: none"/>	<!-- <input jwcid="IPASS_CHECK_RESULT@TextField" value="ognl:pageData.getParameter('IPASS_CHECK_RESULT')"
+		style="display: none" />
+	<input jwcid="IPASS_LOGIN_COOKIE@TextField" value="ognl:pageData.getParameter('IPASS_LOGIN_COOKIE')"
+		style="display: none" />
+	<input jwcid="IPASS_LOGIN_LATER@TextField" value="ognl:pageData.getParameter('IPASS_LOGIN_LATER')"
+		style="display: none" /> -->
+	<!-- QC:17848 END -->	<!-- QC:17848 BEGIN -->
+	<div class="fields clear">
+	<!-- QC:17848 END -->
+		<label for="STAFF_ID">用户名：</label><input type="text" id="STAFF_ID" name="STAFF_ID" maxsize="20" maxlength="20" desc="&#29992;&#25143;&#21517;" oldvalue="" onblur="if (value != '' &amp;&amp; value != getAttribute('oldvalue') &amp;&amp; getAttribute('needSmsVerify') == 'true') { ajaxDirect(this, 'needVerifySms', '&amp;LOGIN_STAFF_ID=' + getElementValue('STAFF_ID'), 'SmsVerifyPart1,SmsVerifyPart2,VerifyPart1,VerifyPart2');self.afterAction = 'if (getElement(\'SMS_VERIFY_CODE\') == null) {getElement(\'smsVerifyArea\').style.display = \'none\';}else if(getElement(\'SMS_VERIFY_CODE\') != null) {getElement(\'smsVerifyArea\').style.display = \'block\';} if (getElement(\'VERIFY_CODE\') == null) {getElement(\'verifyArea\').style.display = \'none\';getElement(\'verifyArea2\').style.display = \'none\';}else if(getElement(\'VERIFY_CODE\') != null) {getElement(\'verifyArea\').style.display = \'block\';getElement(\'verifyArea2\').style.display = \'block\';}'; }" needSmsVerify="false" class="txt" onfocus="select();" nullable="no" datatype="text"/>	</div>
+	<!-- QC:17848 BEGIN -->
+	<div class="fields clear">
+	<!-- QC:17848 END -->
+		<label for="LOGIN_PASSWORD">密　码：</label>
+		<input class="txt" type="password" id="LOGIN_PASSWORD"
+			name="LOGIN_PASSWORD" desc="密码" nullable="no" datatype="text"
+			onfocus="select();" />
+	</div>	<div class="fields fields_sel clear">
+			<label for="VERIFY_CODE">省　份：</label>	
+			 <!-- QC:50895 BEGIN --><select id="LOGIN_PROVINCE_CODE" name="LOGIN_PROVINCE_CODE" class="txtSel" nullable="no" desc="&#30465;&#20221;" onchange="getProvinceLoginInfo(this);">
+<option value="09">&#24635;&#37096;</option>
+<option value="11">&#21271;&#20140;</option>
+<option value="18">&#27827;&#21271;</option>
+<option value="76">&#27827;&#21335;</option>
+<option value="17">&#23665;&#19996;</option>
+<option value="91">&#36797;&#23425;</option>
+<option value="97">&#40657;&#40857;&#27743;</option>
+<option value="10">&#20869;&#33945;&#21476;</option>
+<option value="19">&#23665;&#35199;</option>
+<option value="50">&#28023;&#21335;</option>
+<option value="30">&#23433;&#24509;</option>
+<option value="36">&#27993;&#27743;</option>
+<option value="86">&#20113;&#21335;</option>
+<option value="87">&#29976;&#32899;</option>
+<option value="70">&#38738;&#28023;</option>
+<option value="59">&#24191;&#35199;</option>
+<option value="51">&#24191;&#19996;</option>
+<option value="71">&#28246;&#21271;</option>
+<option value="75">&#27743;&#35199;</option>
+<option value="89">&#26032;&#30086;</option>
+<option value="13">&#22825;&#27941;</option>
+<option value="34">&#27743;&#33487;</option>
+<option value="90">&#21513;&#26519;</option>
+<option value="31">&#19978;&#28023;</option>
+<option value="88">&#23425;&#22799;</option>
+<option value="81">&#22235;&#24029;</option>
+<option value="83">&#37325;&#24198;</option>
+<option value="84">&#38485;&#35199;</option>
+<option value="85">&#36149;&#24030;</option>
+<option value="74">&#28246;&#21335;</option>
+<option value="38">&#31119;&#24314;</option>
+<option value="79">&#35199;&#34255;</option>
+<option value="95">&#26234;&#32593;&#31185;&#25216;</option>
+<option value="60">&#24635;&#37096;&#25919;&#20225;</option>
+</select> <!-- QC:50895 END -->
+			 
+		</div> 	<div id="verifyArea" class="fields fields_add clear"><div id="VerifyPart1"> 	<label for="VERIFY_CODE">附加码：</label>  </div>	<div id="verifyArea2"><div id="VerifyPart2"> 	<input class="txt_short" type="text" id="VERIFY_CODE"
+						name="VERIFY_CODE" desc="附加码" nullable="no" equsize="4"
+						datatype="text" size="8" onfocus="select();" /> <img
+						id="captureImage" align="absmiddle"
+						onclick="refreshCapture(this);"
+						style="display: inline-block; background-color: #69F; width: 62px; height: 21px; line-height: 21px; cursor: pointer;" /> </div>	</div>
+	</div>
+	<div id="smsVerifyArea" class="fields clear"><div id="SmsVerifyPart1">  </div><div id="SmsVerifyPart2">  </div>	</div>	<!--<div class="saveCookies">
+		<label for="LOGIN_FLAG" class="last">
+			<input type="checkbox" id="LOGIN_FLAG" name="LOGIN_FLAG" value="1"
+				checked />
+			记住我的用户名
+		</label>
+	</div>
+	-->	<table id="provinceInfoTable"><tr>	<td><input type="text" id="$TextField" name="$TextField" value="09" provinceUrl="https://hq.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$0" name="$TextField$0" value="11" provinceUrl="https://bj.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$1" name="$TextField$1" value="18" provinceUrl="https://he.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$2" name="$TextField$2" value="76" provinceUrl="https://ha.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$3" name="$TextField$3" value="17" provinceUrl="https://sd.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$4" name="$TextField$4" value="91" provinceUrl="https://ln.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$5" name="$TextField$5" value="97" provinceUrl="https://hl.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$6" name="$TextField$6" value="10" provinceUrl="https://nm.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$7" name="$TextField$7" value="19" provinceUrl="https://sx.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$8" name="$TextField$8" value="50" provinceUrl="https://hi.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$9" name="$TextField$9" value="30" provinceUrl="https://ah.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$10" name="$TextField$10" value="36" provinceUrl="https://zj.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$11" name="$TextField$11" value="86" provinceUrl="https://yn.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$12" name="$TextField$12" value="87" provinceUrl="https://gs.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$13" name="$TextField$13" value="70" provinceUrl="https://qh.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$14" name="$TextField$14" value="59" provinceUrl="https://gx.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$15" name="$TextField$15" value="51" provinceUrl="https://gd.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$16" name="$TextField$16" value="71" provinceUrl="https://hb.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$17" name="$TextField$17" value="75" provinceUrl="https://jx.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$18" name="$TextField$18" value="89" provinceUrl="https://xj.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$19" name="$TextField$19" value="13" provinceUrl="https://tj.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$20" name="$TextField$20" value="34" provinceUrl="https://js.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$21" name="$TextField$21" value="90" provinceUrl="https://jl.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$22" name="$TextField$22" value="31" provinceUrl="https://sh.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$23" name="$TextField$23" value="88" provinceUrl="https://nx.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$24" name="$TextField$24" value="81" provinceUrl="https://sc.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$25" name="$TextField$25" value="83" provinceUrl="https://cq.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$26" name="$TextField$26" value="84" provinceUrl="https://sn.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$27" name="$TextField$27" value="85" provinceUrl="https://gz.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$28" name="$TextField$28" value="74" provinceUrl="https://hn.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$29" name="$TextField$29" value="38" provinceUrl="https://fj.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$30" name="$TextField$30" value="79" provinceUrl="https://xz.cbss.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$31" name="$TextField$31" value="95" provinceUrl="https://zw.cBSS.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr><tr>	<td><input type="text" id="$TextField$32" name="$TextField$32" value="60" provinceUrl="https://zbzq.cBSS.10010.com/essframe" style="display: none;" provinceInfo="true"/>	</td></tr>	</table>
+	<div class="submit clear">
+		<!-- QC:50895 BEGIN --><input value=" " class="button" onclick="checkIpassState();if(!checkLoginType()) return false;if (!verifyAll(this)) return false;if(getElement('needAlertInfo') != null &amp;&amp; !window.confirm(getElement('needAlertInfo').innerText)) return false;checkGrayRelease();" type="button" onmouseout="this.className='button buttonOff'" onmouseover="this.className='button buttonOver'"></input>	<!-- QC:50895 END -->
+		<input class="button reset" type="reset" value=" "
+			onmouseover="this.className='button buttonOver reset'"
+			onmouseout="this.className='button buttonOff reset'" />
+	</div>
+		<div style="margin-left:40px;margin-top:10px;">
+	    <span>
+	         <a href="javascript:void(0)"   onclick="passwordReset();">忘记密码?</a>
+	    </span>
+	    <!-- tfs：519714 start -->
+	    <!-- 添加工号解锁的href，js参考303行 -->
+	    <span style = "margin-left : 60px; ">
+	         <a href="javascript:staffIdUnlock()">工号解锁?</a>
+	    </span>
+	     <!-- tfs：519714 end -->
+	   </div>
+
+</div>
+
+<script language="JavaScript" type="text/JavaScript">
+//QC:50895 BEGIN
+/**判断登录方式*/
+function checkLoginType(){
+	var ipassLoginProvince = getElementValue('IPASS_LOGIN_PROVINCE');
+	var loginProvince = getElementValue('LOGIN_PROVINCE_CODE');
+	if(contains(ipassLoginProvince,loginProvince,false)){
+		//chooseLoginType();
+		return getIpassSignatureInfo();
+	}else{
+		$('IPASS_LOGIN').value = '';
+		$('IPASS_ACTIVATE').value = '';
+		$('WHITE_LIST_LOGIN').value = '';
+		$('SIGNATURE_CODE').value = '';
+		$('SIGNATURE_DATA').value = '';
+	}
+	return true;
+}
+
+/**读取IPASS证书信息*/
+function getIpassSignatureInfo(){
+
+	if($('IPASS_ACTIVATE').value == 'true'
+		|| $('IPASS_LOGIN').value == 'true'){
+		var object = ukey();	//弹三次框
+		$('SIGNATURE_CODE').value = object.code;
+		$('SIGNATURE_DATA').value = object.message;
+		if($('IPASS_LOGIN').value == 'true' 
+			&& object.code != 1 ){
+			checkIpassState();
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+/**获取IPASS连接状态，控制页面展示*/
+function checkIpassState(){
+	var choose ;
+	var ipassLoginProvince = getElementValue('IPASS_LOGIN_PROVINCE');
+	var loginProvince = getElementValue('LOGIN_PROVINCE_CODE');
+	$('WHITE_LIST_LOGIN').value = '';
+	$('IPASS_LOGIN').value = '';
+	
+	//判断用户所选省份是否开启IPASS开关
+	if(contains(ipassLoginProvince,loginProvince,false)){
+		//检查IPASS是否已经连接
+		var result = isIpassConnected();   //弹两次框
+		if(result != 1){
+			if(result == 2){	//已连接IPASS，但IPASS证书为空
+				ipassActiveStyle();
+			}else{	//未连接和其他异常情况
+				whiteLoginStyle();
+			}
+		}else{
+			ipassStyle();
+		}
+		
+	}else{
+		normalStyle();
+	}
+}
+
+function normalStyle(){
+	$('IPASS_LOGIN').value = '';
+	$('IPASS_ACTIVATE').value = '';
+	$('WHITE_LIST_LOGIN').value = '';
+	$('SIGNATURE_CODE').value = '';
+	$('SIGNATURE_DATA').value = '';
+}
+function whiteLoginStyle(){
+	$('WHITE_LIST_LOGIN').value = true;
+	$('IPASS_ACTIVATE').value = '';
+	$('IPASS_LOGIN').value = '';
+}
+function ipassActiveStyle(){
+	alert('您使用的是新iPASS，请妥善保管，如果对iPASS有任何问题，欢迎登录ess.cucns.com.cn了解更多，点击确定将为您进行iPASS初始化，期间请勿关闭浏览器窗口或者拔出设备！成功后将会自动为您转到主页。');
+	$('IPASS_ACTIVATE').value = true;
+	$('IPASS_LOGIN').value = '';
+	$('WHITE_LIST_LOGIN').value = '';
+}
+function ipassStyle(){
+	$('IPASS_LOGIN').value = true;
+	$('IPASS_ACTIVATE').value = '';
+	$('WHITE_LIST_LOGIN').value = '';
+}
+//QC:50895 END
+
+function doFail(msg){
+	return window.confirm(msg);
+}
+function contains(string,substr,isIgnoreCase)
+{
+	if(isIgnoreCase)
+	{
+		string=string.toLowerCase();
+		substr=substr.toLowerCase();
+	}
+	var startChar=substr.substring(0,1);
+	var strLen=substr.length;
+	for(var j=0;j<string.length-strLen+1;j++)
+	{
+		if(string.charAt(j)==startChar)//如果匹配起始字符,开始查找
+		{
+			if(string.substring(j,j+strLen)==substr)//如果从j开始的字符与str匹配，那ok
+			{
+				return true;
+			}   
+		}
+	}
+	return false;
+}
+
+//tfs  start 
+function  passwordReset(){
+	// window.location.href="/findpassword/staffPasswordReset.html";
+	redirectTo('staffPasswordReset',null);
+	   
+}
+//tfs  end 
+// tfs：519714 start -->
+function staffIdUnlock(){
+
+	redirectTo('staffUnlock',null);
+} 
+//tfs：519714 end -->
+</script>	</div>
+				</div>
+<div style="display:none" id="dmsg">
+		<p><br/><h5>系统升级，请安装<a href="CUCRV4.zip">联通根证书</a>。</h5></p>
+	</div>
+<script language="JavaScript" type="text/JavaScript">
+//qc99507密码加密
+function passwdEncryption(){
+    //密码加密
+	var loginpassword = getElementValue('LOGIN_PASSWORD');
+	var hash = b64_sha1(loginpassword);
+	var words = CryptoJS.enc.Base64.parse(hash);
+	var base64passwd = CryptoJS.enc.Base64.stringify(words);
+	document.getElementById('LOGIN_PASSWORD').value = base64passwd;
+	
+    //工号加密
+	var staffId = getElementValue('STAFF_ID');
+	var base64staff = Base64.encode(staffId);
+	document.getElementById('STAFF_ID').value = base64staff;
+	
+}
+
+/**灰度发布校验*/
+function checkGrayRelease(){
+    var grayReleaseFlag =  $('GRAY_RELEASE_FLAG').value;
+    if(grayReleaseFlag == "true"){
+        var staffId = getElementValue("STAFF_ID");
+     	var provinceCode = getElementValue("LOGIN_PROVINCE_CODE");
+        ajaxDirectService('Home', 'checkGrayRelease', '&STAFF_ID='+staffId+'&PROVINCE_CODE='+provinceCode, 'gray1','post');
+	    this.afterAction = "checkSubmit()"; 
+    }else{
+        checkSubmit();
+    }
+}
+
+var provinceInfos = {};
+function getProvinceLoginInfo(obj){
+	var AUTH_TYPE_TALK_WEB='1',AUTH_TYPE_ESS='0',authType = $('AUTH_TYPE').value;
+	//ajaxDirect('Home', 'getProvinceLoginInfo', '&LOGIN_PROVINCE_ID=' + obj.value, 'loginProvinceInfoPart');
+	if(AUTH_TYPE_ESS == authType){
+		$('LOGIN_PROVINCE_REDIRECT_URL').value = provinceInfos[obj.value];
+		getCapture();
+	}else if(AUTH_TYPE_TALK_WEB == authType){
+		$('captureImage').src = $('CAPTURE_URL').value;
+	}
+}
+
+function getCapture(){
+	var tempUrl = '';
+	var captureImage = $('CAPTURE_URL').value;
+	if($('LOGIN_PROVINCE_REDIRECT_URL') && $('LOGIN_PROVINCE_REDIRECT_URL').value != ''){
+			tempUrl = $('LOGIN_PROVINCE_REDIRECT_URL').value.substring(0,$('LOGIN_PROVINCE_REDIRECT_URL').value.lastIndexOf('/'));
+//			$('captureImage').src = "https://114.251.39.184/2007.gif";
+			if (! needDownload)  $('captureImage').src = tempUrl + captureImage;
+		}
+}
+
+function checkSubmit(){
+	var AUTH_TYPE_TALK_WEB='1',AUTH_TYPE_ESS='0',authType = $('AUTH_TYPE').value;
+	var grayReleaseFlag =  $('GRAY_RELEASE_FLAG').value;
+	if(grayReleaseFlag == "true"){
+	    var checkGrayRelease =  $('CHECK_GRAY_RELEASE').value;
+        var grayReleaseUrl = $('GRAY_RELEASE_URL').value;
+        if(checkGrayRelease == "true") {
+            $('LOGIN_PROVINCE_REDIRECT_URL').value = grayReleaseUrl;
+        }
+	}
+   
+	if(AUTH_TYPE_ESS == authType){
+	    if($('LOGIN_TAG').value == 0){
+		    passwdEncryption();
+		}
+		var actionUrl = $('LOGIN_PROVINCE_REDIRECT_URL').value + '?service=page/LoginProxy&login_type=redirectLogin';
+		$('staffLogin').action = actionUrl;
+	}else if(AUTH_TYPE_TALK_WEB == authType){
+		$('staffLogin').action = $('TALK_WEB_LOGIN_URL').value;
+		$('Login').value = $('STAFF_ID').value;
+		$('Password').value = $('LOGIN_PASSWORD').value;
+		$('Captcha').value = $('VERIFY_CODE').value;
+		$('Success').value = $('LOGIN_PROVINCE_REDIRECT_URL').value + '?service=page/LoginProxy&login_type=sso';
+		$('Error').value = $('LOGIN_PROVINCE_REDIRECT_URL').value + '?service=page/LoginProxy&login_type=sso&authType=' + AUTH_TYPE_TALK_WEB;
+	}
+	
+	$('staffLogin').submit();
+}
+
+function refreshCapture(obj){
+
+	var prefix;
+	obj.src.indexOf("?") > 0 ? prefix = "&" : prefix = "?";
+	if(obj.src.indexOf("random") > 0){
+		$(obj).src = $(obj).src.substring(0,$(obj).src.indexOf("random")+7) + Math.random();
+	}else{
+		$(obj).src = $(obj).src + prefix +'random=' + Math.random();
+	}
+}
+
+document.onreadystatechange = function() {
+	if (document.readyState == "complete") {
+		var provinceArr = $A($$('input[provinceInfo]'));
+		provinceArr.each(function(o) {
+					provinceInfos[o.value] = o.getAttribute('provinceUrl');
+				});
+		$('provinceInfoTable').remove();
+		getProvinceLoginInfo($('LOGIN_PROVINCE_CODE'));
+	}
+}
+
+<!--
+
+window.onload = function() {
+    //修改登录页面背景图片
+    changeBackImage();
+	var staff_id = getElement("STAFF_ID");
+	if (staff_id.value != "" && staff_id.getAttribute("needSmsVerify") == "true") {
+		ajaxDirect(this, 'needVerifySms', '&LOGIN_STAFF_ID=' + staff_id.value, 'SmsVerifyPart1,SmsVerifyPart2,VerifyPart1,VerifyPart2');
+		this.afterAction = "if (getElement('SMS_VERIFY_CODE') == null) getElement('smsVerifyArea').style.display = 'none';if (getElement('VERIFY_CODE') == null) {getElement('verifyArea').style.display = 'none';getElement('verifyArea2').style.display = 'none';}"; 
+	}
+	
+	
+}
+
+function changeBackImage(){
+   //获取当前系统时间
+   var sysDate = getElementValue("DATE");
+    if(sysDate=='05-01' || sysDate=='05-02' || sysDate=='05-03' || sysDate=='05-04'||
+    	sysDate=='05-15'||sysDate=='06-07'||sysDate=='06-08'||sysDate=='06-09'||
+    	/* sysDate=='06-05'|| */sysDate=='09-13'||sysDate=='09-14'||sysDate=='09-15'||
+		/* sysDate=='06-06'|| */sysDate=='10-01'||sysDate=='10-02'||sysDate=='10-03'||sysDate=='10-04'||sysDate=='10-05'||sysDate=='10-06'||sysDate=='10-07'){
+      	loadImage();
+    }
+}
+function loadImage(){
+      var body  =document.getElementById("login");
+      removeClass(body,"login");
+      var sysDate = getElementValue("DATE");
+      if(sysDate=='05-01' || sysDate=='05-02' || sysDate=='05-03' || sysDate=='05-04'){
+      	body.style.background = "url(images/signUp/bodyBg5.jpg)";
+      	body.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/signUp/bodyBg5.jpg',  sizingMethod='scale')";
+      
+      }else if(sysDate=='05-15'||sysDate=='06-07'||sysDate=='06-08'||sysDate=='06-09'){
+      	body.style.background = "url(images/signUp/duanWu.jpg)";
+      	body.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/signUp/duanWu.jpg',  sizingMethod='scale')";
+      
+      }else if(sysDate=='06-05'||sysDate=='09-13'||sysDate=='09-14'||sysDate=='09-15'){
+      	body.style.background = "url(images/signUp/zhongQiu.jpg)";
+      	body.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/signUp/zhongQiu.jpg',  sizingMethod='scale')";
+
+      }else if(sysDate=='06-06'||sysDate=='10-01'||sysDate=='10-02'||sysDate=='10-03'||sysDate=='10-04'||sysDate=='10-05'||sysDate=='10-06'||sysDate=='10-07'){
+      	body.style.background = "url(images/signUp/guoQing.jpg)";
+      	body.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/signUp/guoQing.jpg',  sizingMethod='scale')";
+   
+      }
+      
+      body.style.backgroundSize = "100% 100%";
+      var f_login = document.getElementById("f_login");
+      f_login.style.backgroundImage = "url(images/signUp/signbox51.jpg)"; 
+}
+
+
+function addClass(obj, cls){
+  var obj_class = obj.className,//获取 class 内容.
+  blank = (obj_class != '') ? ' ' : '';//判断获取到的 class 是否为空, 如果不为空在前面加个'空格'.
+  added = obj_class + blank + cls;//组合原来的 class 和需要添加的 class.
+  obj.className = added;//替换原来的 class.
+}
+   
+function removeClass(obj, cls){
+  var obj_class = ' '+obj.className+' ';//获取 class 内容, 并在首尾各加一个空格. ex) 'abc    bcd' -> ' abc    bcd '
+  obj_class = obj_class.replace(/(\s+)/gi, ' '),//将多余的空字符替换成一个空格. ex) ' abc    bcd ' -> ' abc bcd '
+  removed = obj_class.replace(' '+cls+' ', ' ');//在原来的 class 替换掉首尾加了空格的 class. ex) ' abc bcd ' -> 'bcd '
+  removed = removed.replace(/(^\s+)|(\s+$)/g, '');//去掉首尾空格. ex) 'bcd ' -> 'bcd'
+  obj.className = removed;//替换原来的 class.
+}
+// -->
+
+</script>
+				<!-- 声明部分 -->
+				<div class="copyright" >
+					<div class="company clear" style="display: none" >
+						<span class="tip">版权所有：中国联合网络通信有限公司</span>
+					</div>
+				</div></form>	</form>
+<!--2.	在body加载后 执行的脚本，控制 安装根证书的提示信息 是否显示-->
+<script language="JavaScript" type="text/JavaScript">
+	if(needDownload){
+		$('dmsg2').style.display = 'block';
+		$('main').style.display = 'none';
+	} 
+	
+	 //主动刷新浏览器,重新加载验证码 (非IE浏览器)
+	if(window.name!="hasLoad"){    
+	    location.reload();    
+	    window.name = "hasLoad";    
+	  }else{    
+	    window.name="";    
+	 } 
+	
+</script>
+	</div></body>
+</html>
